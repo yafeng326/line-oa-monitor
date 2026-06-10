@@ -33,6 +33,12 @@ jobs:
         run: python scripts/scraper.py
 
       - name: Commit updated CSV
+      - name: Trigger Pages deployment
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/yafeng326/line-oa-monitor/pages/builds
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
